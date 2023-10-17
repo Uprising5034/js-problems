@@ -7,21 +7,21 @@
 :root {
   font-family: sans-serif;
   background-color: black;
+  color: white;
 }
 
 .grid {
   display: grid;
+  place-content: center;
 }
 
-.cell {
-  display: grid;
-  place-items: center;
+.container {
+  gap: 1rem;
 
-  font-size: 3rem;
-
-  background-color: black;
-  color: grey;
+  padding: 1rem;
 }
+
+/* ======== BOARD ======== */
 
 #sudoku-board {
   padding: 10px;
@@ -32,6 +32,15 @@
   width: min-content;
 
   background-color: grey;
+}
+
+.cell {
+  display: grid;
+  place-items: center;
+
+  font-size: 3rem;
+
+  background-color: black;
 }
 
 .cell-top {
@@ -48,4 +57,14 @@
 
 .cell-left {
   margin-left: 2px;
+}
+
+/* ======== Puzzle Counter ======== */
+
+#puzzle-selection {
+  grid-auto-flow: column;
+
+  padding: 1rem;
+
+  gap: 2rem;
 }

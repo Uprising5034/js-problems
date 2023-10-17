@@ -3,4 +3,4 @@ const inputArray = input.split(regex)
 
 inputArray[0] = inputArray[0].substring(8)
 
-const puzzles = inputArray.map(puzzle => puzzle.replaceAll("\n", ""))
+const PUZZLES = inputArray.map(puzzle => puzzle.replaceAll("\n", ""))

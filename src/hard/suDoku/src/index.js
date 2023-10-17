@@ -1,8 +1,14 @@
-const STATE = {};
+const STATE = {
+  puzzleNo: 0,
+  board: {},
+};
 
 const BOARD = document.querySelector("#sudoku-board");
+const PUZZLE_SELECT = document.querySelector("#puzzle-selection");
+const PUZZLE_ID = PUZZLE_SELECT.querySelector("#puzzle-id");
 
-function initState(puzzle) {
+function initState(puzzleNo) {
+  const puzzle = PUZZLES[puzzleNo];
   const coords = {
     columns: [],
     rows: [],
@@ -16,10 +22,10 @@ function initState(puzzle) {
   }
 
   const puzzleItr = Array.from(puzzle).entries();
-  coords.rows.forEach((row, idxRow) => {
+  coords.rows.forEach((row) => {
     coords.columns.forEach((column) => {
       const nextValue = parseInt(puzzleItr.next().value[1]);
-      STATE[row + column] = {
+      STATE.board[row + column] = {
         start: nextValue ? nextValue : null,
         solve: null,
         user: null,
@@ -28,10 +34,15 @@ function initState(puzzle) {
       };
     });
   });
+
+  renderBoard();
+  renderPuzzleNo();
 }
 
-function renderCells() {
-  Object.keys(STATE).forEach((key) => {
+function renderBoard() {
+  clearElement(BOARD);
+
+  Object.keys(STATE.board).forEach((key) => {
     renderCell(key);
   });
 }
@@ -40,30 +51,58 @@ function renderCell(coord) {
   const cell = document.createElement("div");
   cell.id = coord;
   cell.classList.add("cell");
-  cell.innerText = STATE[coord].start;
+  cell.innerText = STATE.board[coord].start;
 
-  const column = parseInt(coord[1])
-  const row = coord.charCodeAt(0)
-
-  console.log('row :>> ', row % 3);
+  const column = parseInt(coord[1]);
+  const row = coord.charCodeAt(0);
 
   if (!(column % 3)) {
-    cell.classList.add("cell-right")
+    cell.classList.add("cell-right");
   }
   if (!((column + -1) % 3)) {
-    cell.classList.add("cell-left")
+    cell.classList.add("cell-left");
   }
 
   if (!(row % 3)) {
-    cell.classList.add("cell-bottom")
+    cell.classList.add("cell-bottom");
   }
   if (!((row + -1) % 3)) {
-    cell.classList.add("cell-top")
+    cell.classList.add("cell-top");
   }
 
   BOARD.append(cell);
 }
 
-initState(puzzles[0]);
+function clearElement(element) {
+  while (element.lastChild) {
+    element.lastChild.remove();
+  }
+}
 
-renderCells();
+function puzzleSelectButtons() {
+  const buttons = PUZZLE_SELECT.querySelectorAll("button");
+
+  buttons.forEach((button, idx) => {
+    button.addEventListener("click", (e) => {
+      changePuzzle(STATE.puzzleNo + (idx ? +1 : -1));
+    });
+  });
+}
+
+function renderPuzzleNo() {
+  PUZZLE_ID.innerText = `${STATE.puzzleNo + 1} / ${PUZZLES.length}`;
+}
+
+function changePuzzle(puzzleNo) {
+  if (
+    (STATE.puzzleNo > puzzleNo && puzzleNo > -1) ||
+    (STATE.puzzleNo < puzzleNo && puzzleNo < PUZZLES.length)
+  ) {
+    STATE.puzzleNo = puzzleNo;
+    initState(puzzleNo);
+  }
+}
+
+initState(0);
+
+puzzleSelectButtons();
