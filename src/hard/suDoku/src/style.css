@@ -15,6 +15,10 @@
   place-content: center;
 }
 
+.grid-column {
+  grid-auto-flow: column;
+}
+
 .container {
   gap: 1rem;
 
@@ -67,4 +71,13 @@
   padding: 1rem;
 
   gap: 2rem;
+}
+
+#puzzle-id {
+  gap: 1rem;
+  padding: 1rem;
+
+  border-radius: 1rem;
+
+  background-color: grey;
 }

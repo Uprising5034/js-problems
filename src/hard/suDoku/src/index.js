@@ -79,7 +79,7 @@ function clearElement(element) {
   }
 }
 
-function puzzleSelectButtons() {
+function puzzleSelect() {
   const buttons = PUZZLE_SELECT.querySelectorAll("button");
 
   buttons.forEach((button, idx) => {
@@ -87,10 +87,17 @@ function puzzleSelectButtons() {
       changePuzzle(STATE.puzzleNo + (idx ? +1 : -1));
     });
   });
+
+  const input = PUZZLE_SELECT.querySelector("input");
+  input.setAttribute("min", 0 + 1);
+  input.setAttribute("max", PUZZLES.length + 1);
+
+  input.addEventListener("input", () => changePuzzle(input.value - 1));
 }
 
 function renderPuzzleNo() {
-  PUZZLE_ID.innerText = `${STATE.puzzleNo + 1} / ${PUZZLES.length}`;
+  PUZZLE_ID.children[0].value = STATE.puzzleNo + 1;
+  PUZZLE_ID.children[1].innerText = `/ ${PUZZLES.length}`;
 }
 
 function changePuzzle(puzzleNo) {
@@ -105,4 +112,4 @@ function changePuzzle(puzzleNo) {
 
 initState(0);
 
-puzzleSelectButtons();
+puzzleSelect();
