@@ -12,7 +12,6 @@ function initState(puzzle) {
   for (let i = 1; i <= 9; i++) {
     coords.columns.push(i);
 
-    if (charCode === 105) charCode++;
     coords.rows.push(String.fromCharCode(charCode++));
   }
 
@@ -27,7 +26,6 @@ function initState(puzzle) {
         possible: null,
         userPossible: null,
       };
-      console.log("STATE[row+column] :>> ", STATE[row + column]);
     });
   });
 }
@@ -43,6 +41,26 @@ function renderCell(coord) {
   cell.id = coord;
   cell.classList.add("cell");
   cell.innerText = STATE[coord].start;
+
+  const column = parseInt(coord[1])
+  const row = coord.charCodeAt(0)
+
+  console.log('row :>> ', row % 3);
+
+  if (!(column % 3)) {
+    cell.classList.add("cell-right")
+  }
+  if (!((column + -1) % 3)) {
+    cell.classList.add("cell-left")
+  }
+
+  if (!(row % 3)) {
+    cell.classList.add("cell-bottom")
+  }
+  if (!((row + -1) % 3)) {
+    cell.classList.add("cell-top")
+  }
+
   BOARD.append(cell);
 }
 

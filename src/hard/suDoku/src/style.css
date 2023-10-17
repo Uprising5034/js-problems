@@ -34,7 +34,18 @@
   background-color: grey;
 }
 
+.cell-top {
+  margin-top: 2px;
+}
 
-.cell-bot {
-  margin-bottom: 1px;
+.cell-right {
+  margin-right: 2px;
+}
+
+.cell-bottom {
+  margin-bottom: 2px;
+}
+
+.cell-left {
+  margin-left: 2px;
 }
