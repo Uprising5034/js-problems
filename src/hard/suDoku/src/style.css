@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: sans-serif;
+  background-color: black;
+}
+
+.grid {
+  display: grid;
+}
+
+.cell {
+  display: grid;
+  place-items: center;
+
+  font-size: 3rem;
+
+  background-color: black;
+  color: grey;
+}
+
+#sudoku-board {
+  padding: 10px;
+  grid-template-columns: repeat(9, 80px);
+  grid-template-rows: repeat(9, 80px);
+
+  gap: 2px;
+  width: min-content;
+
+  background-color: grey;
+}
+
+
+.cell-bot {
+  margin-bottom: 1px;
+}
